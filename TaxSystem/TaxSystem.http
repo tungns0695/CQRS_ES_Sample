@@ -1,0 +1,6 @@
+@TaxSystem_HostAddress = http://localhost:5191
+
+GET {{TaxSystem_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

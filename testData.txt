@@ -1,0 +1,516 @@
+# Tax System API Test Data
+# This file contains sample JSON payloads for testing all API endpoints
+
+## Base URL: http://localhost:5191
+
+# =============================================================================
+# 1. CREATE TAXPAYER (POST /api/taxpayer)
+# =============================================================================
+
+POST /api/taxpayer
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "middleName": "Michael",
+  "dateOfBirth": "1985-03-15T00:00:00Z",
+  "socialSecurityNumber": "123-45-6789",
+  "taxIdentificationNumber": "TIN123456789",
+  "email": "john.smith@email.com",
+  "phoneNumber": "(555) 123-4567",
+  "addresses": [
+    {
+      "streetAddress": "123 Main Street",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "USA",
+      "addressType": "Home",
+      "isPrimary": true
+    },
+    {
+      "streetAddress": "456 Business Ave",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10002",
+      "country": "USA",
+      "addressType": "Work",
+      "isPrimary": false
+    }
+  ],
+  "createdBy": "admin"
+}
+
+# =============================================================================
+# 2. CREATE TAXPAYER - Single (POST /api/taxpayer)
+# =============================================================================
+
+POST /api/taxpayer
+Content-Type: application/json
+
+{
+  "firstName": "Sarah",
+  "lastName": "Johnson",
+  "dateOfBirth": "1990-07-22T00:00:00Z",
+  "socialSecurityNumber": "987-65-4321",
+  "email": "sarah.johnson@email.com",
+  "phoneNumber": "(555) 987-6543",
+  "addresses": [
+    {
+      "streetAddress": "789 Oak Drive",
+      "city": "Los Angeles",
+      "state": "CA",
+      "zipCode": "90210",
+      "country": "USA",
+      "addressType": "Home",
+      "isPrimary": true
+    }
+  ],
+  "createdBy": "admin"
+}
+
+# =============================================================================
+# 3. CREATE TAXPAYER - Retired (POST /api/taxpayer)
+# =============================================================================
+
+POST /api/taxpayer
+Content-Type: application/json
+
+{
+  "firstName": "Robert",
+  "lastName": "Wilson",
+  "middleName": "Edward",
+  "dateOfBirth": "1955-11-08T00:00:00Z",
+  "socialSecurityNumber": "111-22-3333",
+  "taxIdentificationNumber": "TIN111222333",
+  "email": "robert.wilson@email.com",
+  "phoneNumber": "(555) 555-1234",
+  "addresses": [
+    {
+      "streetAddress": "321 Sunset Blvd",
+      "city": "Miami",
+      "state": "FL",
+      "zipCode": "33101",
+      "country": "USA",
+      "addressType": "Home",
+      "isPrimary": true
+    }
+  ],
+  "createdBy": "admin"
+}
+
+# =============================================================================
+# 4. CREATE TAXPAYER - Student (POST /api/taxpayer)
+# =============================================================================
+
+POST /api/taxpayer
+Content-Type: application/json
+
+{
+  "firstName": "Emily",
+  "lastName": "Davis",
+  "dateOfBirth": "2000-04-12T00:00:00Z",
+  "socialSecurityNumber": "444-55-6666",
+  "email": "emily.davis@university.edu",
+  "phoneNumber": "(555) 444-3333",
+  "addresses": [
+    {
+      "streetAddress": "555 Campus Road",
+      "city": "Boston",
+      "state": "MA",
+      "zipCode": "02115",
+      "country": "USA",
+      "addressType": "Home",
+      "isPrimary": true
+    }
+  ],
+  "createdBy": "admin"
+}
+
+# =============================================================================
+# 5. CREATE TAXPAYER - Self-Employed (POST /api/taxpayer)
+# =============================================================================
+
+POST /api/taxpayer
+Content-Type: application/json
+
+{
+  "firstName": "Michael",
+  "lastName": "Brown",
+  "middleName": "James",
+  "dateOfBirth": "1978-09-30T00:00:00Z",
+  "socialSecurityNumber": "777-88-9999",
+  "taxIdentificationNumber": "TIN777888999",
+  "email": "michael.brown@consulting.com",
+  "phoneNumber": "(555) 777-8888",
+  "addresses": [
+    {
+      "streetAddress": "888 Business Center",
+      "city": "Chicago",
+      "state": "IL",
+      "zipCode": "60601",
+      "country": "USA",
+      "addressType": "Home",
+      "isPrimary": true
+    },
+    {
+      "streetAddress": "999 Office Plaza",
+      "city": "Chicago",
+      "state": "IL",
+      "zipCode": "60602",
+      "country": "USA",
+      "addressType": "Work",
+      "isPrimary": false
+    }
+  ],
+  "createdBy": "admin"
+}
+
+# =============================================================================
+# 6. UPDATE TAXPAYER (PUT /api/taxpayer/{id})
+# =============================================================================
+
+PUT /api/taxpayer/{TAXPAYER_ID}
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "middleName": "Michael",
+  "dateOfBirth": "1985-03-15T00:00:00Z",
+  "email": "john.smith.updated@email.com",
+  "phoneNumber": "(555) 123-9999",
+  "addresses": [
+    {
+      "streetAddress": "123 Main Street",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "country": "USA",
+      "addressType": "Home",
+      "isPrimary": true
+    },
+    {
+      "streetAddress": "789 New Business Ave",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10003",
+      "country": "USA",
+      "addressType": "Work",
+      "isPrimary": false
+    }
+  ],
+  "lastModifiedBy": "admin"
+}
+
+# =============================================================================
+# 7. UPDATE TAXPAYER EMPLOYMENT (PUT /api/taxpayer/{id}/employment)
+# =============================================================================
+
+PUT /api/taxpayer/{TAXPAYER_ID}/employment
+Content-Type: application/json
+
+{
+  "employmentStatus": "Employed",
+  "employerName": "Tech Solutions Inc.",
+  "employerIdentificationNumber": "EIN123456789",
+  "annualIncome": 75000.00,
+  "lastModifiedBy": "admin"
+}
+
+# =============================================================================
+# 8. UPDATE TAXPAYER EMPLOYMENT - Self-Employed (PUT /api/taxpayer/{id}/employment)
+# =============================================================================
+
+PUT /api/taxpayer/{TAXPAYER_ID}/employment
+Content-Type: application/json
+
+{
+  "employmentStatus": "Self-Employed",
+  "employerName": "Brown Consulting Services",
+  "employerIdentificationNumber": "EIN777888999",
+  "annualIncome": 95000.00,
+  "lastModifiedBy": "admin"
+}
+
+# =============================================================================
+# 9. UPDATE TAXPAYER EMPLOYMENT - Retired (PUT /api/taxpayer/{id}/employment)
+# =============================================================================
+
+PUT /api/taxpayer/{TAXPAYER_ID}/employment
+Content-Type: application/json
+
+{
+  "employmentStatus": "Retired",
+  "employerName": "",
+  "employerIdentificationNumber": "",
+  "annualIncome": 25000.00,
+  "lastModifiedBy": "admin"
+}
+
+# =============================================================================
+# 10. UPDATE TAXPAYER EMPLOYMENT - Student (PUT /api/taxpayer/{id}/employment)
+# =============================================================================
+
+PUT /api/taxpayer/{TAXPAYER_ID}/employment
+Content-Type: application/json
+
+{
+  "employmentStatus": "Student",
+  "employerName": "University Bookstore",
+  "employerIdentificationNumber": "EIN444555666",
+  "annualIncome": 15000.00,
+  "lastModifiedBy": "admin"
+}
+
+# =============================================================================
+# 11. UPDATE TAXPAYER TAX FILING STATUS - Filed with Refund (PUT /api/taxpayer/{id}/tax-filing-status)
+# =============================================================================
+
+PUT /api/taxpayer/{TAXPAYER_ID}/tax-filing-status
+Content-Type: application/json
+
+{
+  "filingStatus": "Filed",
+  "taxYear": 2023,
+  "hasFiledTaxes": true,
+  "taxFilingDate": "2024-02-15T00:00:00Z",
+  "taxLiability": 12000.00,
+  "taxPaid": 15000.00,
+  "taxRefund": 3000.00,
+  "lastModifiedBy": "admin"
+}
+
+# =============================================================================
+# 12. UPDATE TAXPAYER TAX FILING STATUS - Filed with Balance Due (PUT /api/taxpayer/{id}/tax-filing-status)
+# =============================================================================
+
+PUT /api/taxpayer/{TAXPAYER_ID}/tax-filing-status
+Content-Type: application/json
+
+{
+  "filingStatus": "Filed",
+  "taxYear": 2023,
+  "hasFiledTaxes": true,
+  "taxFilingDate": "2024-04-15T00:00:00Z",
+  "taxLiability": 18000.00,
+  "taxPaid": 15000.00,
+  "taxRefund": 0.00,
+  "lastModifiedBy": "admin"
+}
+
+# =============================================================================
+# 13. UPDATE TAXPAYER TAX FILING STATUS - Not Filed (PUT /api/taxpayer/{id}/tax-filing-status)
+# =============================================================================
+
+PUT /api/taxpayer/{TAXPAYER_ID}/tax-filing-status
+Content-Type: application/json
+
+{
+  "filingStatus": "Not Filed",
+  "taxYear": 2023,
+  "hasFiledTaxes": false,
+  "taxFilingDate": null,
+  "taxLiability": 0.00,
+  "taxPaid": 0.00,
+  "taxRefund": 0.00,
+  "lastModifiedBy": "admin"
+}
+
+# =============================================================================
+# 14. UPDATE TAXPAYER TAX FILING STATUS - Extension Filed (PUT /api/taxpayer/{id}/tax-filing-status)
+# =============================================================================
+
+PUT /api/taxpayer/{TAXPAYER_ID}/tax-filing-status
+Content-Type: application/json
+
+{
+  "filingStatus": "Extension Filed",
+  "taxYear": 2023,
+  "hasFiledTaxes": false,
+  "taxFilingDate": null,
+  "taxLiability": 8000.00,
+  "taxPaid": 6000.00,
+  "taxRefund": 0.00,
+  "lastModifiedBy": "admin"
+}
+
+# =============================================================================
+# 15. ADD TAXPAYER ADDRESS (POST /api/taxpayers/{taxpayerId}/addresses)
+# =============================================================================
+
+POST /api/taxpayers/{TAXPAYER_ID}/addresses
+Content-Type: application/json
+
+{
+  "streetAddress": "456 New Street",
+  "city": "New York",
+  "state": "NY",
+  "zipCode": "10004",
+  "country": "USA",
+  "addressType": "Mailing",
+  "isPrimary": false
+}
+
+# =============================================================================
+# 16. UPDATE TAXPAYER ADDRESS (PUT /api/taxpayers/{taxpayerId}/addresses/{addressId})
+# =============================================================================
+
+PUT /api/taxpayers/{TAXPAYER_ID}/addresses/{ADDRESS_ID}
+Content-Type: application/json
+
+{
+  "streetAddress": "123 Updated Main Street",
+  "city": "New York",
+  "state": "NY",
+  "zipCode": "10001",
+  "country": "USA",
+  "addressType": "Home",
+  "isPrimary": true
+}
+
+# =============================================================================
+# 17. REMOVE TAXPAYER ADDRESS (DELETE /api/taxpayers/{taxpayerId}/addresses/{addressId})
+# =============================================================================
+
+DELETE /api/taxpayers/{TAXPAYER_ID}/addresses/{ADDRESS_ID}
+Content-Type: application/json
+
+{
+  "reason": "Address no longer valid"
+}
+
+# =============================================================================
+# 18. DEACTIVATE TAXPAYER (DELETE /api/taxpayer/{id})
+# =============================================================================
+
+DELETE /api/taxpayer/{TAXPAYER_ID}
+Content-Type: application/json
+
+{
+  "reason": "Deceased",
+  "deactivatedBy": "admin"
+}
+
+# =============================================================================
+# READ OPERATIONS - GET ENDPOINTS
+# =============================================================================
+
+# =============================================================================
+# 19. GET ALL TAXPAYERS (GET /api/taxpayer)
+# =============================================================================
+
+GET /api/taxpayer
+
+# =============================================================================
+# 20. GET TAXPAYERS WITH SEARCH (GET /api/taxpayer?searchTerm=John)
+# =============================================================================
+
+GET /api/taxpayer?searchTerm=John
+
+# =============================================================================
+# 21. GET ACTIVE TAXPAYERS (GET /api/taxpayer?isActive=true)
+# =============================================================================
+
+GET /api/taxpayer?isActive=true
+
+# =============================================================================
+# 22. GET TAXPAYERS WITH PAGINATION (GET /api/taxpayer?page=1&pageSize=10)
+# =============================================================================
+
+GET /api/taxpayer?page=1&pageSize=10
+
+# =============================================================================
+# 23. GET SPECIFIC TAXPAYER (GET /api/taxpayer/{id})
+# =============================================================================
+
+GET /api/taxpayer/{TAXPAYER_ID}
+
+# =============================================================================
+# 24. GET TAXPAYERS BY FILING STATUS (GET /api/taxpayer/by-filing-status/Filed)
+# =============================================================================
+
+GET /api/taxpayer/by-filing-status/Filed
+
+# =============================================================================
+# 25. GET TAXPAYERS BY FILING STATUS - Not Filed (GET /api/taxpayer/by-filing-status/Not%20Filed)
+# =============================================================================
+
+GET /api/taxpayer/by-filing-status/Not%20Filed
+
+# =============================================================================
+# 26. GET TAXPAYERS BY EMPLOYMENT STATUS (GET /api/taxpayer/by-employment-status/Employed)
+# =============================================================================
+
+GET /api/taxpayer/by-employment-status/Employed
+
+# =============================================================================
+# 27. GET TAXPAYERS BY EMPLOYMENT STATUS - Self-Employed (GET /api/taxpayer/by-employment-status/Self-Employed)
+# =============================================================================
+
+GET /api/taxpayer/by-employment-status/Self-Employed
+
+# =============================================================================
+# 28. GET TAXPAYERS BY EMPLOYMENT STATUS - Retired (GET /api/taxpayer/by-employment-status/Retired)
+# =============================================================================
+
+GET /api/taxpayer/by-employment-status/Retired
+
+# =============================================================================
+# 29. GET TAXPAYERS BY EMPLOYMENT STATUS - Student (GET /api/taxpayer/by-employment-status/Student)
+# =============================================================================
+
+GET /api/taxpayer/by-employment-status/Student
+
+# =============================================================================
+# 30. GET TAXPAYERS WITH OUTSTANDING BALANCE (GET /api/taxpayer/with-outstanding-balance)
+# =============================================================================
+
+GET /api/taxpayer/with-outstanding-balance
+
+# =============================================================================
+# 31. GET TAXPAYERS ELIGIBLE FOR REFUND (GET /api/taxpayer/eligible-for-refund)
+# =============================================================================
+
+GET /api/taxpayer/eligible-for-refund
+
+# =============================================================================
+# TESTING SCENARIOS
+# =============================================================================
+
+# Scenario 1: Complete Taxpayer Lifecycle
+# 1. Create taxpayer (POST /api/taxpayer)
+# 2. Update employment (PUT /api/taxpayer/{id}/employment)
+# 3. Update tax filing status (PUT /api/taxpayer/{id}/tax-filing-status)
+# 4. Add address (POST /api/taxpayers/{id}/addresses)
+# 5. Get taxpayer (GET /api/taxpayer/{id})
+# 6. Update taxpayer (PUT /api/taxpayer/{id})
+# 7. Deactivate taxpayer (DELETE /api/taxpayer/{id})
+
+# Scenario 2: Search and Filter Testing
+# 1. Create multiple taxpayers with different statuses
+# 2. Test search functionality
+# 3. Test filtering by employment status
+# 4. Test filtering by filing status
+# 5. Test pagination
+
+# Scenario 3: Business Logic Testing
+# 1. Create taxpayers with outstanding balances
+# 2. Create taxpayers eligible for refunds
+# 3. Test queries for these specific scenarios
+
+# =============================================================================
+# NOTES
+# =============================================================================
+
+# Replace {TAXPAYER_ID} and {ADDRESS_ID} with actual GUIDs returned from create operations
+# All dates should be in ISO 8601 format (YYYY-MM-DDTHH:mm:ssZ)
+# Social Security Numbers should be in format XXX-XX-XXXX
+# Phone numbers should be in format (XXX) XXX-XXXX
+# Zip codes should be 5 digits for US addresses
+# Employment statuses: Employed, Self-Employed, Retired, Student, Unemployed
+# Filing statuses: Filed, Not Filed, Extension Filed, Amended
+# Address types: Home, Work, Mailing, Billing
+# Tax years should be between 1900 and 2100
+# All monetary amounts should be positive decimal values
