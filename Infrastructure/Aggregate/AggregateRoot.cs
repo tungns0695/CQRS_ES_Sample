@@ -25,7 +25,7 @@ namespace Infrastructure.Aggregate
             }
         }
 
-        protected abstract void Mutate(IEvent @event);
+        public abstract void Mutate(IEvent @event);
 
         public void LoadFromHistory(IEnumerable<IEvent> history)
         {

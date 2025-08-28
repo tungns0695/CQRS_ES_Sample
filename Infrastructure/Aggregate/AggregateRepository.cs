@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Aggregate
 {
-    public class AggregateRepository<T> : IAggregateRepository<T> where T : IAggregateRoot
+    public class AggregateRepository<T> : IAggregateRepository<T> where T : AggregateRoot
     {
         private readonly ISnapshotRepository _snapshotRepository;
         private readonly IEventRepository _eventRepository;
@@ -39,8 +39,7 @@ namespace Infrastructure.Aggregate
             // Create snapshot if needed
             if (ShouldMakeSnapshot(aggregate))
             {
-                var snapshot = ((dynamic)aggregate).GetSnapshot();
-                await _snapshotRepository.SaveAsync(snapshot);
+                await _snapshotRepository.SaveAsync(aggregate);
             }
 
             // Publish events immediately with position information
@@ -74,15 +73,7 @@ namespace Infrastructure.Aggregate
             var snapshot = await _snapshotRepository.GetAsync(aggregateId);
             if (snapshot != null)
             {
-                var remainingEvents = await _eventRepository.GetEvents(aggregateId, snapshot.Version + 1);
-                if (remainingEvents.Any())
-                {
-                    aggregate.LoadFromHistory(remainingEvents);
-                }
-                if (expectedVersion != null && aggregate.Version != expectedVersion)
-                {
-                    throw new ConcurrencyException(aggregateId);
-                }
+                aggregate = await LoadAggregateFromSnapshot(aggregate, snapshot, aggregateId, expectedVersion);
                 return aggregate;
             }
             var allEvents = await _eventRepository.GetEvents(aggregateId);
@@ -95,6 +86,27 @@ namespace Infrastructure.Aggregate
             {
                 throw new ConcurrencyException(aggregateId);
             }
+            return aggregate;
+        }
+
+        private async Task<T> LoadAggregateFromSnapshot(T aggregate, AggregateRoot snapshot, Guid aggregateId, int? expectedVersion)
+        {
+            //aggregate.AggregateId = snapshot.AggregateId;
+            //aggregate.Version = snapshot.Version;
+            
+            // Load any remaining events after the snapshot
+            var remainingEvents = await _eventRepository.GetEvents(aggregateId, snapshot.Version + 1);
+            if (remainingEvents.Any())
+            {
+                aggregate.LoadFromHistory(remainingEvents);
+            }
+            
+            // Validate expected version if specified
+            if (expectedVersion != null && aggregate.Version != expectedVersion)
+            {
+                throw new ConcurrencyException(aggregateId);
+            }
+            
             return aggregate;
         }
 

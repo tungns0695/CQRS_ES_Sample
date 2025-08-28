@@ -40,6 +40,8 @@ namespace Application.Domains.EventHandlers
                 taxpayer.IsActive = false;
                 taxpayer.LastModifiedDate = DateTime.SpecifyKind(@event.OccuredOn.DateTime, DateTimeKind.Utc);
                 taxpayer.LastModifiedBy = @event.DeactivatedBy;
+                taxpayer.LastEventId = @event.Id;
+                taxpayer.Version = @event.Version;
 
                 await _dbContext.SaveChangesAsync();
                 

@@ -4,6 +4,7 @@ using Infrastructure.Exceptions;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace Infrastructure.EventStore
 {
@@ -112,7 +113,8 @@ namespace Infrastructure.EventStore
             var events = new List<IEvent>();
             foreach (var d in docs)
             {
-                var type = Type.GetType(d.FullName, throwOnError: true);
+                var applicationAssembly = Assembly.Load("Application");
+                var type = applicationAssembly.GetType(d.FullName, throwOnError: true);
                 var evt = JsonConvert.DeserializeObject(d.Data, type!) as IEvent;
                 if (evt == null)
                 {

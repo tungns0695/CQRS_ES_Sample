@@ -1,6 +1,8 @@
-﻿using Infrastructure.Aggregate;
-using Application.Domains.Events;
+﻿using Application.Domains.Events;
+using Infrastructure.Aggregate;
 using Infrastructure.Events;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Application.Domains
 {
@@ -41,7 +43,7 @@ namespace Application.Domains
         public decimal TaxPaid { get; private set; }
         public decimal TaxRefund { get; private set; }
 
-        protected override void Mutate(IEvent @event)
+        public override void Mutate(IEvent @event)
         {
             switch (@event)
             {
@@ -75,7 +77,7 @@ namespace Application.Domains
         }
 
         // When methods for handling domain events
-        private void When(TaxpayerCreatedEvent @event)
+        public void When(TaxpayerCreatedEvent @event)
         {
             AggregateId = @event.AggregateId;
             FirstName = @event.FirstName;
@@ -92,7 +94,7 @@ namespace Application.Domains
             IsActive = true;
         }
 
-        private void When(TaxpayerUpdatedEvent @event)
+        public void When(TaxpayerUpdatedEvent @event)
         {
             FirstName = @event.FirstName;
             LastName = @event.LastName;
@@ -105,7 +107,7 @@ namespace Application.Domains
             LastModifiedDate = @event.OccuredOn.DateTime;
         }
 
-        private void When(TaxpayerEmploymentUpdatedEvent @event)
+        public void When(TaxpayerEmploymentUpdatedEvent @event)
         {
             EmploymentStatus = @event.EmploymentStatus;
             EmployerName = @event.EmployerName;
@@ -115,7 +117,7 @@ namespace Application.Domains
             LastModifiedDate = @event.OccuredOn.DateTime;
         }
 
-        private void When(TaxpayerTaxFilingStatusUpdatedEvent @event)
+        public void When(TaxpayerTaxFilingStatusUpdatedEvent @event)
         {
             FilingStatus = @event.FilingStatus;
             TaxYear = @event.TaxYear;
@@ -128,21 +130,21 @@ namespace Application.Domains
             LastModifiedDate = @event.OccuredOn.DateTime;
         }
 
-        private void When(TaxpayerDeactivatedEvent @event)
+        public void When(TaxpayerDeactivatedEvent @event)
         {
             IsActive = false;
             LastModifiedBy = @event.DeactivatedBy;
             LastModifiedDate = @event.OccuredOn.DateTime;
         }
 
-        private void When(TaxpayerAddressAddedEvent @event)
+        public void When(TaxpayerAddressAddedEvent @event)
         {
             Addresses.Add(@event.Address);
             LastModifiedBy = @event.AddedBy;
             LastModifiedDate = @event.OccuredOn.DateTime;
         }
 
-        private void When(TaxpayerAddressUpdatedEvent @event)
+        public void When(TaxpayerAddressUpdatedEvent @event)
         {
             var existingAddress = Addresses.FirstOrDefault(a => a.Id == @event.AddressId);
             if (existingAddress != null)
@@ -154,7 +156,7 @@ namespace Application.Domains
             LastModifiedDate = @event.OccuredOn.DateTime;
         }
 
-        private void When(TaxpayerAddressRemovedEvent @event)
+        public void When(TaxpayerAddressRemovedEvent @event)
         {
             var addressToRemove = Addresses.FirstOrDefault(a => a.Id == @event.AddressId);
             if (addressToRemove != null)
